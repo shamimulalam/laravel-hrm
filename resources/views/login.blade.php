@@ -24,7 +24,9 @@
             <div class="account-box">
                 <div class="account-wrapper">
                     <div class="account-logo">
-                        <a href="index.html"><img src="assets/img/logo2.png" alt="Focus Technologies"></a>
+                        <a href="#"><img src="assets/img/logo2.png" alt="Focus Technologies"></a>
+                        @include('admin.layouts._validation_messages')
+                        @include('admin.layouts._messages')
                     </div>
                     <form action="{{ route('login') }}" method="POST">
                         @csrf

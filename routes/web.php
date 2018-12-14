@@ -12,5 +12,9 @@
 */
 
 Route::get('/','LoginController@index');
-Route::post('/','LoginController@login')->name('login');
-Route::get('dashboard','DashboardController@index');
+Route::get('/logout',function (){
+    auth()->logout();
+});
+Route::post('/login','LoginController@login')->name('login');
+
+Route::get('dashboard','DashboardController@index')->name('dashboard')->middleware('auth');
