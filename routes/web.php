@@ -12,9 +12,12 @@
 */
 
 Route::get('/','LoginController@index');
-Route::get('/logout',function (){
-    auth()->logout();
-});
 Route::post('/login','LoginController@login')->name('login');
 
-Route::get('dashboard','DashboardController@index')->name('dashboard')->middleware('auth');
+Route::middleware('auth')->group(function (){
+    Route::get('dashboard','DashboardController@index')->name('dashboard');
+    Route::post('logout',function (){
+        auth()->logout();
+        return redirect('/');
+    })->name('logout');
+});
