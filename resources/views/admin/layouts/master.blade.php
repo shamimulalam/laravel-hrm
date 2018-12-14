@@ -13,6 +13,7 @@
     </div>
     <div class="page-wrapper">
         <div class="content container-fluid">
+            @include('admin.layouts._messages')
             @yield('content')
         </div>
     </div>
