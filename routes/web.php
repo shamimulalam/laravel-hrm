@@ -18,6 +18,9 @@ Route::middleware('auth')->group(function (){
     Route::get('dashboard','DashboardController@index')->name('dashboard');
     Route::resource('department','DepartmentController');
     Route::resource('designation','DesignationController');
+    Route::resource('user','UserController');
+    // Ajax route
+    Route::get('ajax_designation_by_id/{id}','SettingController@ajaxDesignationByDepartmentId')->name('ajaxDesignationByDepartmentId');
 
     Route::post('logout',function (){
         auth()->logout();

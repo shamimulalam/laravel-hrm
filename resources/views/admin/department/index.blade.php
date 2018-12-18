@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-
     <div class="row">
         <div class="col-sm-8">
             <h4 class="page-title">{{ $title }}</h4>

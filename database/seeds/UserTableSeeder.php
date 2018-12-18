@@ -12,6 +12,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'type'=>'Admin',
             'employee_id' => 'EMP'.time(),
             'department_id'=>1,
             'designation_id'=>1,

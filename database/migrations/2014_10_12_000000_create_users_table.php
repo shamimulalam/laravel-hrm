@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->enum('type',['Admin','Employee']);
             $table->string('employee_id',15)->unique();
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments');
