@@ -9,6 +9,29 @@
             <a href="{{ route('department.create') }}" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Add New Department</a>
         </div>
     </div>
+    <div class="row" style="margin-bottom: 10px">
+        {{ Form::open(['method'=>'get']) }}
+        <div class="col-sm-6">
+            @php
+                $name=null;
+                if(isset($_GET['name'])){
+                    $name=$_GET['name'];
+                }
+                $status=null;
+                if(isset($_GET['status'])){
+                    $status=$_GET['status'];
+                }
+            @endphp
+            {{ Form::text('name',$name,['class'=>'form-control','placeholder'=>'Department name']) }}
+        </div>
+        <div class="col-sm-4">
+            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],$status,['class'=>'form-control','placeholder'=>'Please select status']) }}
+        </div>
+        <div class="col-sm-2">
+            {{ Form::submit('Search',['class'=>'btn btn-warning']) }}
+        </div>
+        {{ Form::close() }}
+        </div>
     <div class="row">
         <div class="col-md-12">
             <div>
