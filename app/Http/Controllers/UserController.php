@@ -76,6 +76,7 @@ class UserController extends Controller
             'email'=>'required|unique:users',
             'password'=>'required|confirmed|min:6',
             'status'=>'required',
+            'image' => 'mimes:png'
         ]);
         $user = new User();
         $user->type= $request->type;
@@ -90,6 +91,14 @@ class UserController extends Controller
         $user->password= bcrypt($request->password);
         $user->status= $request->status;
         $user->save();
+
+        if($request->hasFile('image'))
+        {
+            $image= $request->file('image');
+            if($image->getClientOriginalExtension()=='png') {
+                $image->move('user_images/', $user->id . '.' . $image->getClientOriginalExtension());
+            }
+        }
         session()->flash('success','User stored successfully');
         return redirect()->route('user.index');
     }
@@ -138,6 +147,7 @@ class UserController extends Controller
             'contact_number'=>'required',
             'email'=>'required|unique:users,email,'. $id,
             'status'=>'required',
+            'image' => 'mimes:png'
         ]);
         $user = User::findOrfail($id);
         $user->type= $request->type;
@@ -154,7 +164,16 @@ class UserController extends Controller
             $user->password= bcrypt($request->password);
         }
         $user->status= $request->status;
-        $user->save();
+//        $user->save();
+
+        if($request->hasFile('image'))
+        {
+            $image= $request->file('image');
+            if($image->getClientOriginalExtension()=='png') {
+                $image->move('user_images/', $user->id . '.' . $image->getClientOriginalExtension());
+            }
+        }
+
         session()->flash('success','User updated successfully');
         return redirect()->route('user.index');
     }

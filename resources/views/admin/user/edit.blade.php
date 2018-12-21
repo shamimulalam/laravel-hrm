@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
             <div class="modal-body">
-                {{ Form::model($user,['route'=>['user.update',$user->id],'method'=>'PUT']) }}
+                {{ Form::model($user,['route'=>['user.update',$user->id],'method'=>'PUT','files'=>true]) }}
                     @include('admin.user._form')
                     <div class="m-t-20 text-center">
                         <button class="btn btn-primary">Update User</button>
