@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function (){
     Route::get('dashboard','DashboardController@index')->name('dashboard');
     Route::resource('department','DepartmentController');
     Route::resource('designation','DesignationController');
+    Route::resource('transaction-head','TransactionHeadController');
     Route::resource('user','UserController');
     Route::get('user/{user_id}/payroll','PayrollController@manage')->name('payroll.manage');
     Route::put('user/{user_id}/payroll','PayrollController@update')->name('payroll.update');
