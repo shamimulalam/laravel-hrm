@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Designation;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -54,6 +55,7 @@ class UserController extends Controller
     {
         $data['title'] = 'Create User';
         $data['departments'] = Department::where('status','Active')->pluck('name','id');
+        $data['designations'] = [];
         return view('admin.user.create',$data);
     }
 
@@ -114,6 +116,8 @@ class UserController extends Controller
         $data['title'] = 'Edit User';
         $data['user'] = User::findOrFail($id);
         $data['departments'] = Department::where('status','Active')->pluck('name','id');
+        $data['designations'] = Designation::where('department_id',$data['user']->department_id)->where('status','Active')->pluck('name','id');
+
         return view('admin.user.edit',$data);
     }
 

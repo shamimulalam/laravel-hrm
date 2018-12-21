@@ -36,7 +36,7 @@
     <div id="designationDiv">
         <div class="form-group" id="oldDesignationList">
             <label>Designation Name <span class="text-danger">*</span></label>
-            {{ Form::select('designation_id',[],null,['class'=>'form-control','id'=>'departmentId','placeholder'=>'Select designation name','required']) }}
+            {{ Form::select('designation_id',$designations,null,['class'=>'form-control','id'=>'departmentId','placeholder'=>'Select designation name','required']) }}
         </div>
     </div>
 </fieldset>
