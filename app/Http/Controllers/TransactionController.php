@@ -13,30 +13,37 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request,$transaction_type)
     {
-        $data['title']='Transaction Details';
-        $transaction= new Transaction();
-        $transaction= $transaction->with('relTransactionHead');
-        $render=[];
-        if(isset($request->transaction_id)){
-            $transaction= $transaction->where('transaction_id','like','%'.$request->transaction_id.'%');
-            $render['transaction_id']=$request->transaction_id;
+        if($transaction_type=='Income' || $transaction_type== 'Expense') {
+            $data['title'] = $transaction_type . ' Details';
+            $transaction = new Transaction();
+            $transaction = $transaction->with('relTransactionHead');
+            $transaction = $transaction->where('type', $transaction_type);
+            $render = [];
+            if (isset($request->transaction_id)) {
+                $transaction = $transaction->where('transaction_id', 'like', '%' . $request->transaction_id . '%');
+                $render['transaction_id'] = $request->transaction_id;
+            }
+            if (isset($request->client_name)) {
+                $transaction = $transaction->where('client', 'like', '%' . $request->client_name . '%');
+                $render['client_name'] = $request->client_name;
+            }
+            if (isset($request->transaction_head_id)) {
+                $transaction = $transaction->where('transaction_head_id', $request->transaction_head_id);
+                $render['transaction_head_id'] = $request->transaction_head_id;
+            }
+            $transaction = $transaction->orderBy('id', 'DESC');
+            $transaction = $transaction->paginate(10);
+            $transaction = $transaction->appends($render);
+            $data['transactions'] = $transaction;
+            $data['serial'] = $this->managePagination($transaction);
+            $data['transaction_heads'] = TransactionHead::where('type', $transaction_type)->where('status', 'Active')->pluck('name', 'id');
+            $data['transaction_type'] = $transaction_type;
+            return view('admin.transaction.index', $data);
+        }else{
+            return redirect()->back();
         }
-        if(isset($request->client_name)){
-            $transaction= $transaction->where('client','like','%'.$request->client_name.'%');
-            $render['client_name']=$request->client_name;
-        }
-        if(isset($request->transaction_head_id)){
-            $transaction= $transaction->where('transaction_head_id',$request->transaction_head_id);
-            $render['transaction_head_id']=$request->transaction_head_id;
-        }
-        $transaction= $transaction->orderBy('id','DESC');
-        $transaction= $transaction->paginate(10);
-        $transaction= $transaction->appends($render);
-        $data['transactions']= $transaction;
-        $data['transaction_heads']=TransactionHead::where('type','Income')->where('status','Active')->pluck('name','id');
-        return view('admin.transaction.index',$data);
     }
 
     /**
@@ -44,11 +51,16 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($transaction_type)
     {
-        $data['title']='Create new transaction';
-        $data['transaction_heads']=TransactionHead::where('type','Income')->where('status','Active')->pluck('name','id');
-        return view('admin.transaction.create',$data);
+        if($transaction_type=='Income' || $transaction_type== 'Expense') {
+            $data['title'] = 'Create new ' . $transaction_type;
+            $data['transaction_heads'] = TransactionHead::where('type', $transaction_type)->where('status', 'Active')->pluck('name', 'id');
+            $data['transaction_type'] = $transaction_type;
+            return view('admin.transaction.create', $data);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -57,26 +69,34 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$transaction_type)
     {
-        $request->validate([
-            'transaction_head_id'=>'required',
-            'client_name'=>'required',
-            'description'=>'required',
-            'date'=>'required',
-            'amount'=>'required'
-        ]);
-        $transaction= new Transaction();
-        $transaction->transaction_id= 'IN'.time();
-        $transaction->transaction_head_id=$request->transaction_head_id;
-        $transaction->client=$request->client_name;
-        $transaction->type='Income';
-        $transaction->description=$request->description;
-        $transaction->date=$request->date;
-        $transaction->amount=$request->amount;
-        $transaction->save();
-        session()->flash('success','Income added successfully');
-        return redirect()->route('transaction.index');
+        if($transaction_type=='Income' || $transaction_type== 'Expense') {
+            $request->validate([
+                'transaction_head_id' => 'required',
+                'client_name' => 'required',
+                'description' => 'required',
+                'date' => 'required',
+                'amount' => 'required'
+            ]);
+            $transaction = new Transaction();
+            if ($transaction_type == 'Income') {
+                $transaction->transaction_id = 'IN' . time();
+            } elseif ($transaction_type == 'Expense') {
+                $transaction->transaction_id = 'EX' . time();
+            }
+            $transaction->transaction_head_id = $request->transaction_head_id;
+            $transaction->client = $request->client_name;
+            $transaction->type = $transaction_type;
+            $transaction->description = $request->description;
+            $transaction->date = $request->date;
+            $transaction->amount = $request->amount;
+            $transaction->save();
+            session()->flash('success', $transaction_type . ' added successfully');
+            return redirect()->route('transaction.index', $transaction_type);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -103,27 +123,15 @@ class TransactionController extends Controller
         $data['transaction_heads']=TransactionHead::where('type','Income')->where('status','Active')->pluck('name','id');
         return view('admin.transaction.edit',$data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    function managePagination($obj)
     {
-        //
+        $serial=1;
+        if($obj->currentPage()>1)
+        {
+            $serial=(($obj->currentPage()-1)*$obj->perPage())+1;
+        }
+        return $serial;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
 }

@@ -5,7 +5,7 @@
             <h4 class="page-title">{{ $title }}</h4>
         </div>
         <div class="col-sm-4 text-right m-b-30">
-            <a href="{{ route('transaction.create') }}" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Add New Transaction</a>
+            <a href="{{ route('transaction.create',$transaction_type) }}" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Add New {{ $transaction_type }}</a>
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">
@@ -57,7 +57,7 @@
                     @foreach($transactions as $transaction)
 
                         <tr>
-                            <td>{{ $transaction->id }}</td>
+                            <td>{{ $serial++ }}</td>
                             <td>{{ $transaction->transaction_id }}</td>
                             <td>{{ $transaction->relTransactionHead->name }}</td>
                             <td>{{ $transaction->client }}</td>

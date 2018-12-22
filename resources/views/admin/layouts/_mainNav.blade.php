@@ -11,7 +11,8 @@
             <li class="submenu">
                 <a href="#"><span> Transactions </span> <span class="menu-arrow"></span></a>
                 <ul class="list-unstyled" style="display: none;">
-                    <li><a href="{{ route('transaction.index') }}"> Income </a></li>
+                    <li><a href="{{ route('transaction.index','Income') }}"> Income </a></li>
+                    <li><a href="{{ route('transaction.index','Expense') }}"> Expense </a></li>
                 </ul>
             </li>
             <li class="submenu">
