@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function (){
     Route::resource('user','UserController');
     Route::get('user/{user_id}/payroll','PayrollController@manage')->name('payroll.manage');
     Route::put('user/{user_id}/payroll','PayrollController@update')->name('payroll.update');
+    // Transaction Routes
+    Route::get('transaction','TransactionController@index')->name('transaction.index');
+    Route::get('transaction/create','TransactionController@create')->name('transaction.create');
+    Route::post('transaction','TransactionController@store')->name('transaction.store');
     // Ajax route
     Route::get('ajax_designation_by_id/{id}','SettingController@ajaxDesignationByDepartmentId')->name('ajaxDesignationByDepartmentId');
 

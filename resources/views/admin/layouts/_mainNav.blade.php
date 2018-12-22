@@ -9,6 +9,12 @@
                 <a href="{{ route('user.index') }}">Users</a>
             </li>
             <li class="submenu">
+                <a href="#"><span> Transactions </span> <span class="menu-arrow"></span></a>
+                <ul class="list-unstyled" style="display: none;">
+                    <li><a href="{{ route('transaction.index') }}"> Income </a></li>
+                </ul>
+            </li>
+            <li class="submenu">
                 <a href="#"><span> Settings </span> <span class="menu-arrow"></span></a>
                 <ul class="list-unstyled" style="display: none;">
                     <li><a href="{{ route('department.index') }}"> Departments </a></li>
