@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function (){
     // Ajax route
     Route::get('ajax_designation_by_id/{id}','SettingController@ajaxDesignationByDepartmentId')->name('ajaxDesignationByDepartmentId');
 
+    Route::get('application_settings','SettingController@application_settings')->name('application_settings');
+    Route::post('application_settings','SettingController@update_application_settings')->name('application_settings.update');
     Route::post('logout',function (){
         auth()->logout();
         return redirect()->to('/');

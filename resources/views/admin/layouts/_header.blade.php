@@ -1,6 +1,9 @@
 <div class="header-left">
     <a href="index.html" class="logo">
-        <img src="assets/img/logo.png" width="40" height="40" alt="">
+        @php
+            $logo=App\Setting::where('type','logo')->first();
+        @endphp
+        <img src="{{ asset($logo->value) }}" width="40" height="40" alt="">
     </a>
 </div>
 <div class="page-title-box pull-left">
