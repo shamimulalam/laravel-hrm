@@ -36,3 +36,8 @@ Route::middleware('auth')->group(function (){
         return redirect()->to('/');
     })->name('logout');
 });
+Route::get('/mailable', function () {
+
+    $data['employee']=\App\User::with('relPayRoll')->first();
+    return new App\Mail\SendPaySlip($data);
+});

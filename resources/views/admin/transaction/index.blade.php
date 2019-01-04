@@ -60,7 +60,13 @@
                             <td>{{ $serial++ }}</td>
                             <td>{{ $transaction->transaction_id }}</td>
                             <td>{{ $transaction->relTransactionHead->name }}</td>
-                            <td>{{ $transaction->client }}</td>
+                            <td>
+                                @if(is_numeric($transaction->client))
+                                    {{ $transaction->relUser->name }}
+                                @else
+                                    {{ $transaction->client }}
+                                @endif
+                            </td>
                             <td>{{ date('d M Y',strtotime($transaction->date)) }}</td>
                             <td>{{ $transaction->amount }}</td>
                             <td class="text-right">

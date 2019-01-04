@@ -18,7 +18,7 @@ class TransactionController extends Controller
         if($transaction_type=='Income' || $transaction_type== 'Expense') {
             $data['title'] = $transaction_type . ' Details';
             $transaction = new Transaction();
-            $transaction = $transaction->with('relTransactionHead');
+            $transaction = $transaction->with('relTransactionHead','relUser');
             $transaction = $transaction->where('type', $transaction_type);
             $render = [];
             if (isset($request->transaction_id)) {
