@@ -91,7 +91,7 @@
             <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="{{ route('user.show',auth()->id()) }}">My Profile</a></li>
             <li><a href="edit-profile.html">Edit Profile</a></li>
             <li><a href="settings.html">Settings</a></li>
             <li>

@@ -6,7 +6,9 @@
         </div>
 
         <div class="col-sm-4 text-right m-b-30">
+            @if(auth()->user()->type=='Admin')
             <a href="{{ route('user.edit',$user->id) }}" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Edit Profile</a>
+            @endif
         </div>
     </div>
     <div class="card-box">
@@ -64,9 +66,12 @@
         <div class="col-md-3">
             <div class="card-box m-b-0">
                 <h3 class="card-title">Payroll
-                    <a href="{{ route('payroll.manage',$user->id) }}" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Edit Payroll</a>
+                    @if(auth()->user()->type=='Admin')
+                        <a href="{{ route('payroll.manage',$user->id) }}" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Edit Payroll</a>
+                    @endif
                 </h3>
                 <div class="skills">
+                    @if($user->relPayroll != null)
                     <span>Basic - {{ $user->relPayroll->basic }} </span>
                     <span>House Rent - {{ $user->relPayroll->house_rent }}</span>
                     <span>Medical - {{ $user->relPayroll->medical }}</span>
@@ -74,6 +79,7 @@
                     <span>Daily Allowance - {{ $user->relPayroll->daily_allowance }}</span>
                     <span>Provident Fund - {{ $user->relPayroll->provident_fund }}</span>
                     <span>Gross - <b>{{ $user->relPayroll->gross }}</b></span>
+                    @endif
                 </div>
             </div>
         </div>
