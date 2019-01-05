@@ -9,22 +9,12 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">
-        {{ Form::open(['method'=>'get']) }}
+        {{ Form::model(request(),['method'=>'get']) }}
         <div class="col-sm-6">
-            @php
-                $name=null;
-                if(isset($_GET['name'])){
-                    $name=$_GET['name'];
-                }
-                $status=null;
-                if(isset($_GET['status'])){
-                    $status=$_GET['status'];
-                }
-            @endphp
-            {{ Form::text('name',$name,['class'=>'form-control','placeholder'=>'Department name']) }}
+            {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Department name']) }}
         </div>
         <div class="col-sm-4">
-            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],$status,['class'=>'form-control','placeholder'=>'Please select status']) }}
+            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],null,['class'=>'form-control','placeholder'=>'Please select status']) }}
         </div>
         <div class="col-sm-2">
             {{ Form::submit('Search',['class'=>'btn btn-warning']) }}

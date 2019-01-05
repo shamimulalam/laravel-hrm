@@ -9,29 +9,15 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">
-        {{ Form::open(['method'=>'get']) }}
-        @php
-            $transaction_id=null;
-            if(isset($_GET['transaction_id'])){
-                $transaction_id=$_GET['transaction_id'];
-            }
-            $client_name=null;
-            if(isset($_GET['client_name'])){
-                $client_name=$_GET['client_name'];
-            }
-            $transaction_head_id=null;
-            if(isset($_GET['transaction_head_id'])){
-                $transaction_head_id=$_GET['transaction_head_id'];
-            }
-        @endphp
+        {{ Form::model(request(),['method'=>'get']) }}
         <div class="col-sm-3">
-            {{ Form::text('transaction_id',$transaction_id,['class'=>'form-control','placeholder'=>'Transaction ID']) }}
+            {{ Form::text('transaction_id',null,['class'=>'form-control','placeholder'=>'Transaction ID']) }}
         </div>
         <div class="col-sm-4">
-            {{ Form::text('client_name',$client_name,['class'=>'form-control','placeholder'=>'Client name']) }}
+            {{ Form::text('client_name',null,['class'=>'form-control','placeholder'=>'Client name']) }}
         </div>
         <div class="col-sm-3">
-            {{ Form::select('transaction_head_id',$transaction_heads,$transaction_head_id,['class'=>'form-control','placeholder'=>'Select transaction head']) }}
+            {{ Form::select('transaction_head_id',$transaction_heads,null,['class'=>'form-control','placeholder'=>'Select transaction head']) }}
         </div>
         <div class="col-sm-2">
             {{ Form::submit('Search',['class'=>'btn btn-warning']) }}

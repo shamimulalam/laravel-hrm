@@ -10,29 +10,15 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">
-        @php
-            $name=null;
-            if(isset($_GET['name'])){
-                $name=$_GET['name'];
-            }
-            $status=null;
-            if(isset($_GET['status'])){
-                $status=$_GET['status'];
-            }
-            $department_id=null;
-            if(isset($_GET['department_id'])){
-                $department_id=$_GET['department_id'];
-            }
-        @endphp
-        {{ Form::open(['method'=>'get']) }}
+        {{ Form::model(request(),['method'=>'get']) }}
         <div class="col-sm-4">
-            {{ Form::text('name',$name,['class'=>'form-control','placeholder'=>'Designation name']) }}
+            {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Designation name']) }}
         </div>
         <div class="col-sm-4">
-            {{ Form::select('department_id',$departments,$department_id,['class'=>'form-control','placeholder'=>'Select department']) }}
+            {{ Form::select('department_id',$departments,null,['class'=>'form-control','placeholder'=>'Select department']) }}
         </div>
         <div class="col-sm-2">
-            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],$status,['class'=>'form-control','placeholder'=>'Select status']) }}
+            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],null,['class'=>'form-control','placeholder'=>'Select status']) }}
         </div>
         <div class="col-sm-2">
             {{ Form::submit('Search',['class'=>'btn btn-warning']) }}

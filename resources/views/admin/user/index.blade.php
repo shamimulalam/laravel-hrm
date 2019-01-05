@@ -10,37 +10,18 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">
-        {{ Form::open(['method'=>'get']) }}
-
-        @php
-            $name=null;
-            if(isset($_GET['name'])){
-                $name=$_GET['name'];
-            }
-            $type=null;
-            if(isset($_GET['type'])){
-                $type=$_GET['type'];
-            }
-            $email=null;
-            if(isset($_GET['email'])){
-                $email=$_GET['email'];
-            }
-            $status=null;
-            if(isset($_GET['status'])){
-                $status=$_GET['status'];
-            }
-        @endphp
+        {{ Form::model(request(),['method'=>'get']) }}
         <div class="col-sm-3">
-            {{ Form::text('name',$name,['class'=>'form-control','placeholder'=>'User name']) }}
+            {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'User name']) }}
         </div>
         <div class="col-sm-3">
-            {{ Form::text('email',$email,['class'=>'form-control','placeholder'=>'Email']) }}
+            {{ Form::text('email',null,['class'=>'form-control','placeholder'=>'Email']) }}
         </div>
         <div class="col-sm-2">
-            {{ Form::select('type',['Admin'=>'Admin','Employee'=>'Employee'],$type,['class'=>'form-control','placeholder'=>'Select type']) }}
+            {{ Form::select('type',['Admin'=>'Admin','Employee'=>'Employee'],null,['class'=>'form-control','placeholder'=>'Select type']) }}
         </div>
         <div class="col-sm-2">
-            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],$status,['class'=>'form-control','placeholder'=>'Select status']) }}
+            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],null,['class'=>'form-control','placeholder'=>'Select status']) }}
         </div>
         <div class="col-sm-2">
             {{ Form::submit('Search',['class'=>'btn btn-warning']) }}
