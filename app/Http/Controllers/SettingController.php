@@ -17,6 +17,9 @@ class SettingController extends Controller
     }
     public function update_application_settings(Request $request)
     {
+        $request->validate([
+            'logo'=>'mimes:png,jpg,jpeg'
+        ]);
         $setting= Setting::where('type','company_name')->first();
         $setting->value=$request->company_name;
         $setting->save();
