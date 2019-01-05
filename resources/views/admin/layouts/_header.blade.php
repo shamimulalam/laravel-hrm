@@ -1,13 +1,10 @@
 <div class="header-left">
     <a href="index.html" class="logo">
-        @php
-            $logo=App\Setting::where('type','logo')->first();
-        @endphp
         <img src="{{ asset($logo->value) }}" width="40" height="40" alt="">
     </a>
 </div>
 <div class="page-title-box pull-left">
-    <h3>HRM Application</h3>
+    <h3>{{ $company_name->value }}</h3>
 </div>
 <a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 <ul class="nav navbar-nav navbar-right user-menu pull-right">
