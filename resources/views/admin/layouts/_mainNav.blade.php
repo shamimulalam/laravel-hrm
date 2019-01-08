@@ -17,6 +17,13 @@
                 </ul>
             </li>
             <li class="submenu">
+                <a href="#"><span> Attendance </span> <span class="menu-arrow"></span></a>
+                <ul class="list-unstyled" style="display: none;">
+                    <li><a href="{{ route('attendance.index') }}"> List </a></li>
+                    <li><a href="{{ route('attendance.upload') }}"> Bulk Upload </a></li>
+                </ul>
+            </li>
+            <li class="submenu">
                 <a href="#"><span> Settings </span> <span class="menu-arrow"></span></a>
                 <ul class="list-unstyled" style="display: none;">
                     <li><a href="{{ route('department.index') }}"> Departments </a></li>
