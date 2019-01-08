@@ -11,12 +11,12 @@ class TransactionHeadSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('transaction_head')->insert([
+        DB::table('transaction_heads')->insert([
             'type'=>'Expense',
             'name' => 'Salary',
             'status' => 'Active'
         ]);
-        DB::table('transaction_head')->insert([
+        DB::table('transaction_heads')->insert([
             'type'=>'Income',
             'name' => 'Provident Fund',
             'status' => 'Active'
