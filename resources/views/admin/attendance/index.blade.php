@@ -11,10 +11,10 @@
     <div class="row" style="margin-bottom: 10px">
         {{ Form::model(request(),['method'=>'get']) }}
         <div class="col-sm-6">
-            {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Department name']) }}
+            {{ Form::date('date',null,['class'=>'form-control','placeholder'=>'Date']) }}
         </div>
         <div class="col-sm-4">
-            {{ Form::select('status',['Active'=>'Active','Inactive'=>'Inactive'],null,['class'=>'form-control','placeholder'=>'Please select status']) }}
+            {{ Form::select('status',['Present'=>'Present','Absent'=>'Absent'],null,['class'=>'form-control','placeholder'=>'Please select status']) }}
         </div>
         <div class="col-sm-2">
             {{ Form::submit('Search',['class'=>'btn btn-warning']) }}
@@ -31,7 +31,6 @@
                         <th>Name</th>
                         <th>Time</th>
                         <th>Status</th>
-                        <th class="text-right">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,15 +43,6 @@
                                 {{ $attendance->in_time.'-'.$attendance->out_time }}
                             </td>
                             <td>{{ $attendance->status }}</td>
-                            <td class="text-right">
-                                <div class="dropdown">
-                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="{{ route('department.edit',$attendance->id) }}" title="Edit"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                        <li><a href="#" title="Delete"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                    </ul>
-                                </div>
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>
