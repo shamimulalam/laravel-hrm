@@ -18,6 +18,7 @@
         </div>
         <div class="col-sm-2">
             {{ Form::submit('Search',['class'=>'btn btn-warning']) }}
+            <a href="{{ route('attendance.show',[$user->id,'export']) }}" class="btn btn-info">Export</a>
         </div>
         {{ Form::close() }}
     </div>

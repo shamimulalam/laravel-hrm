@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function (){
         Route::get('attendance/index', 'AttendanceController@index')->name('attendance.index');
         Route::get('attendance/create', 'AttendanceController@create')->name('attendance.upload');
         Route::post('attendance/store', 'AttendanceController@store')->name('attendance.store');
-        Route::get('attendance/{user_id}', 'AttendanceController@show')->name('attendance.show');
+        Route::get('attendance/{user_id}/{export?}', 'AttendanceController@show')->name('attendance.show');
     });
     Route::resource('user', 'UserController')->only(['show']);
     Route::post('logout',function (){

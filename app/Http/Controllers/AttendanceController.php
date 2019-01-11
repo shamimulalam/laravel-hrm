@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Exports\AttendanceExport;
 use App\Imports\AttendanceImport;
 use App\User;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class AttendanceController extends Controller
         session()->flash('success','Attendance uploaded successfully');
         return redirect()->route('attendance.index');
     }
-    public function show(Request $request,$user_id)
+    public function show(Request $request,$user_id,$export=false)
     {
         $user= User::findOrFail($user_id);
         $data['title']='Attendance of '.$user->name;
@@ -68,10 +69,15 @@ class AttendanceController extends Controller
             $attendance=$attendance->where('status',$request->status);
             $render['status']=$request->status;
         }
+        if(!empty($export))
+        {
+            return Excel::download(new AttendanceExport($user_id), $user->name.'.xlsx');
+        }
         $attendance= $attendance->orderBy('id','DESC');
         $attendance= $attendance->paginate(10);
         $attendance= $attendance->appends($render);
         $data['attendances']=$attendance;
+        $data['user']=$user;
         return view('admin.attendance.show',$data);
     }
 }
