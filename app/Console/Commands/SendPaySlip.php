@@ -61,7 +61,7 @@ class SendPaySlip extends Command
         $transaction->type = 'Expense';
         $transaction->description = 'Salary for the month of '.date('M');
         $transaction->date = date('Y-m-d');
-        $transaction->amount = $request->relPayRoll->gross+$request->relPayRoll->Provident_fund;
+        $transaction->amount = $request->relPayRoll->gross+$request->relPayRoll->provident_fund;
         $transaction->save();
 
         $transaction = new Transaction();

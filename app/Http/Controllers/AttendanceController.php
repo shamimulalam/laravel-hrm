@@ -44,4 +44,34 @@ class AttendanceController extends Controller
         session()->flash('success','Attendance uploaded successfully');
         return redirect()->route('attendance.index');
     }
+    public function show(Request $request,$user_id)
+    {
+        $user= User::findOrFail($user_id);
+        $data['title']='Attendance of '.$user->name;
+        $render=[];
+        $attendance = new Attendance();
+        $attendance= $attendance->with('relUser');
+        $attendance=$attendance->where('user_id',$user_id);
+
+        if(isset($request->start_date) && isset($request->end_date))
+        {
+            $attendance=$attendance->whereBetween('date',[$request->start_date,$request->end_date]);
+            $render['start_date']=$request->start_date;
+            $render['end_date']=$request->end_date;
+        }elseif(isset($request->start_date))
+        {
+            $attendance=$attendance->where('date',$request->start_date);
+            $render['start_date']=$request->start_date;
+        }
+        if(isset($request->status))
+        {
+            $attendance=$attendance->where('status',$request->status);
+            $render['status']=$request->status;
+        }
+        $attendance= $attendance->orderBy('id','DESC');
+        $attendance= $attendance->paginate(10);
+        $attendance= $attendance->appends($render);
+        $data['attendances']=$attendance;
+        return view('admin.attendance.show',$data);
+    }
 }
