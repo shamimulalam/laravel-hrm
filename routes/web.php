@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function (){
         Route::post('application_settings', 'SettingController@update_application_settings')->name('application_settings.update');
         // attendance routes
         Route::get('attendance', 'AttendanceController@index')->name('attendance.index');
+        Route::get('attendance/index', 'AttendanceController@index')->name('attendance.index');
         Route::get('attendance/create', 'AttendanceController@create')->name('attendance.upload');
         Route::post('attendance/store', 'AttendanceController@store')->name('attendance.store');
     });
